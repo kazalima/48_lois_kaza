@@ -19,10 +19,10 @@ def split_into_laws(text):
             print(f"LOI {i} trouvé à l'index {index}: {text[index:index+100]}")
         else:
             print(f"LOI {i} non trouvé")
-    
+
     # Trie les indices par position dans le texte (au cas où ils ne seraient pas dans l'ordre)
     indices.sort(key=lambda x: x[1])
-    
+
     # Divise le texte en lois basées sur les indices
     for i in range(len(indices)):
         law_number, start_index = indices[i]
@@ -30,36 +30,36 @@ def split_into_laws(text):
         law_text = text[start_index:end_index].strip()
         laws.append(law_text)
         print(f"Loi {law_number} extraite : {law_text[:100]}...")
-    
+
     print(f"Nombre total de lois détectées : {len(laws)}")
     if len(laws) != 48:
         print(f"Attention : {len(laws)} lois détectées au lieu de 48. Vérifiez les titres manquants.")
-    
+
     return laws
 
 def generate_embeddings(config):
     model_name = config["model"]["embedding_model"]
     text_path = config["data"]["text_path"]
     embeddings_path = config["data"]["embeddings_path"]
-    
+
     if not os.path.exists(text_path):
         raise FileNotFoundError(f"Texte non trouvé à {text_path}")
-    
+
     # Charger le modèle
     model = SentenceTransformer(model_name)
-    
+
     # Lire le texte
     with open(text_path, "r", encoding="utf-8") as file:
         text = file.read()
-    
+
     # Diviser en lois
     laws = split_into_laws(text)
     if not laws:
         raise ValueError("Aucune loi détectée. Vérifiez le format du texte.")
-    
+
     # Générer les embeddings
     embeddings = model.encode(laws, show_progress_bar=True)
-    
+
     # Sauvegarder les embeddings
     embeddings_data = [
         {"law": law, "embedding": embedding.tolist()}
@@ -68,7 +68,7 @@ def generate_embeddings(config):
     os.makedirs(os.path.dirname(embeddings_path), exist_ok=True)
     with open(embeddings_path, "w", encoding="utf-8") as file:
         json.dump(embeddings_data, file, ensure_ascii=False, indent=2)
-    
+
     return embeddings_data
 
 if __name__ == "__main__":

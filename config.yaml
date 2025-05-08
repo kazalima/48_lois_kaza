@@ -3,4 +3,4 @@ data:
   text_path: "data/processed/48_laws_of_power.txt"
   embeddings_path: "data/processed/embeddings.json"
 model:
-  embedding_model: "all-MiniLM-L6-v2"
+  embedding_model: "paraphrase-multilingual-mpnet-base-v2"
