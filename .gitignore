@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.env
+api_key.txt
+*.log
+*.tmp
+data/raw/*.pdf

@@ -1,0 +1,6 @@
+data:
+  pdf_path: "/content/48_lois_kaza/data/raw/48_laws_of_power.pdf"
+  text_path: "data/processed/48_laws_of_power.txt"
+  embeddings_path: "data/processed/embeddings.json"
+model:
+  embedding_model: "all-MiniLM-L6-v2"
