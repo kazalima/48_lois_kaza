@@ -2,11 +2,16 @@ data:
   embeddings_path: data/processed/embeddings.json
   fine_tuning_data: data/fine_tuning_data.jsonl
   pdf_path: data/raw/48_laws_of_power.pdf
+  test_data: data/processed/dataset/test.jsonl
   text_path: data/processed/48_laws_of_power.txt
+  train_data: data/processed/dataset/train.jsonl
+  val_data: data/processed/dataset/val.jsonl
 model:
   embedding_model: paraphrase-multilingual-mpnet-base-v2
-  llm_model: microsoft/Phi-3-mini-4k-instruct
+  llm_model: distilgpt2
   llm_params:
-    max_length: 200
+    max_new_tokens: 150
     temperature: 0.7
+    top_p: 0.9
     torch_dtype: float16
+  model_output_dir: model
