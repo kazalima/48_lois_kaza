@@ -1,4 +1,3 @@
-# Dans src/data_processing/extract_text.py
 import yaml
 import PyPDF2
 import re
@@ -19,10 +18,10 @@ def clean_text(text):
 def extract_text_from_pdf(config):
     pdf_path = config["data"]["pdf_path"]
     text_path = config["data"]["text_path"]
-    
+
     if not os.path.exists(pdf_path):
         raise FileNotFoundError(f"PDF non trouvé à {pdf_path}")
-    
+
     full_text = ""
     with open(pdf_path, "rb") as file:
         reader = PyPDF2.PdfReader(file)
@@ -30,13 +29,13 @@ def extract_text_from_pdf(config):
             text = page.extract_text()
             if text:
                 full_text += text + "\n"
-    
+
     cleaned_text = clean_text(full_text)
-    
+
     os.makedirs(os.path.dirname(text_path), exist_ok=True)
     with open(text_path, "w", encoding="utf-8") as file:
         file.write(cleaned_text)
-    
+
     return cleaned_text
 
 if __name__ == "__main__":
